@@ -84,6 +84,7 @@ public:
     }
 
 private:
+    //Получение имени
     std::string getUserName() {
         std::string userName;
         std::cout << "Ваше имя для рейтинга? ";
@@ -91,6 +92,7 @@ private:
         return userName;
     }
 
+    //Ввод попытки
     std::string getUserGuess() {
         std::string userGuess;
         std::cout << "Ваша попытка: ";
@@ -98,6 +100,7 @@ private:
         return userGuess;
     }
 
+    //Выбор случайного слова
     std::string getRandomWord(const std::vector<std::string>& words) {
         std::random_device rd;
         std::mt19937 gen(rd());
@@ -105,6 +108,7 @@ private:
         return words[dis(gen)];
     }
 
+    //Проверка введенного слова
     void checkLetters(const std::string& userGuess, const std::string& randomWord, std::string& maskedWord, std::string& matchingLetters, std::string& correctLetters) {
         for (size_t i = 0; i < userGuess.length() && i < maskedWord.length(); ++i) {
             if (userGuess[i] == randomWord[i]) {
@@ -132,6 +136,7 @@ private:
         }
     }
 
+    //Вывод результата попытки
     void printResult(const std::string& matchingLetters, const std::string& correctLetters) {
         if (!matchingLetters.empty() || !correctLetters.empty()) {
             std::cout << "Отгаданные буквы: ";
@@ -160,6 +165,7 @@ private:
         }
     }
 
+    //Начисление очков
     int getScore(int attempts) {
         std::map<int, int> scoreTable = {
             {1, 5},
@@ -172,6 +178,7 @@ private:
         return scoreTable[std::max(1, std::min(attempts, 5))];
     }
 
+    //Зашифровка
     void encryptWord(std::string& maskedWord) {
         for (char& c : maskedWord) {
             if (c != ' ') {
@@ -180,6 +187,7 @@ private:
         }
     }
 
+    //Запись результатов
     void writeToScoresFile(const std::string& userName, int highScore) {
         std::ifstream scoreFileRead("score.txt");
         std::vector<std::pair<std::string, int>> scores;
